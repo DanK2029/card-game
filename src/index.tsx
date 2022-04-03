@@ -1,26 +1,28 @@
 import * as PIXI from 'pixi.js';
 
-import { getEnemy, EnemyTypes } from './game/enemy/enemyService';
+import { EnemySet } from './game/character/enemy/enemy';
+
+import { Knight } from './game/character/player/players/knight';
+import { Slime } from './game/character/enemy/enemies/slime';
+
+import { Fight } from './game/fight/fight'
 
 let app: PIXI.Application = new PIXI.Application({
     resizeTo: window,
-    backgroundColor: 0x96B9D0
+    backgroundColor: 0x96B9D0,
+    antialias: true,
 });
+app.renderer.plugins.interaction.moveWhenInside = true;
 document.body.appendChild(app.view);
 
-const slime = getEnemy(EnemyTypes.SLIME);
-slime.container.x = 50;
+let knight: Knight = new Knight();
+knight.receiveDamage(30);
+let slime: Slime = new Slime();
 
-app.stage.addChild(slime.container);
+let enemySet: EnemySet = {
+    'slime': slime
+}
 
-setTimeout(() => {
-    slime.gainBlock(1);
-}, 1000);
-
-setTimeout(() => {
-    slime.resetBlock();
-}, 2000);
-
-setTimeout(() => {
-    slime.resetBlock();
-}, 2000);
+let fight: Fight = new Fight(knight, enemySet);
+fight.x = 20;
+app.stage.addChild(fight);

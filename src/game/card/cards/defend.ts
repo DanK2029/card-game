@@ -1,8 +1,11 @@
 import { Card, CardType, PlayCallback } from "../card";
 
 import { Fight } from '../../fight/fight'
-import { Enemy, EnemySet } from '../../enemy/enemy';
+import { EnemySet } from '../../character/enemy/enemy';
 
+/**
+ * Defend - An attack card that gives 5 base block to the player.
+ */
 export default class Defend extends Card {
 	
 	constructor() {
